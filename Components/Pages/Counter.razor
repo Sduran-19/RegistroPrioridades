@@ -1,5 +1,6 @@
 ﻿@page "/counter"
-@rendermode InteractiveServer
+@using System.Text.Json;
+@inject HttpClient Http
 
 <PageTitle>Counter</PageTitle>
 
@@ -11,9 +12,20 @@
 
 @code {
     private int currentCount = 0;
+    private const string V = "Cantidad de dias";
 
-    private void IncrementCount()
+    private async void IncrementCount()
     {
+        var ticket = new Prioridades()
+            {
+                Descripcion = "nada se imprime",
+                DiasCompromiso = 0
+		};
+
+        //using var response = await Http.PostAsJsonAsync("api/Tickets", ticket);
+        using var response = await Http.PostAsJsonAsync("api/Tickets", ticket);
+        var data = await response.Content.ReadFromJsonAsync<Prioridades>();
+
         currentCount++;
     }
 }
