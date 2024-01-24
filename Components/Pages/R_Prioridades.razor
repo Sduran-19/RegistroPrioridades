@@ -1,24 +1,22 @@
-﻿@page "/prioridades"
+﻿@page "/Prioridades"
 @rendermode InteractiveServer
 @inject PrioridadesBLL PrioridadesBLL
-@page "/Prioridades/{PrioridadId:int}"
 
-
-<EditForm Model="Prioridades" OnValidSubmit="Guardar">
+<EditForm Model="prioridades" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
 
     <div class="container">
         <div class="card shadow-lg">
             <div class="card-header">
-                <h3>Registro de Tickets.</h3>
+                <h3>Registro de Prioridades.</h3>
             </div>
             <div class=card-body>
 
-                @*PrioridadId:*@
+                @*Prioridades Id:*@
                 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
                     <label>Prioridad Id:</label>
                     <div class="input-group mb-3">
-                        <InputNumber @bind-Value="Prioridades.PrioridadId" class="form-control" aria-describedby="BotonBuscar" />
+                        <InputNumber @bind-Value="prioridades.PrioridadId" class="form-control" aria-describedby="BotonBuscar" />
                         <button @onclick="Buscar" class="btn btn-outline-primary" type="button" id="BotonBuscar"><i class="oi oi-magnifying-glass" /></button>
                     </div>
                 </div>
@@ -26,16 +24,19 @@
                 @*Descripcion*@
                 <div class="mb-3">
                     <label class="form-label" for="Descripcion">Descripcion:</label>
-                    <InputText @bind-Value="Prioridades.Descripcion" class="form-control" />
-                    <ValidationMessage For="@(() => Prioridades.Descripcion)" />
+                    <InputText @bind-Value="prioridades.Descripcion" class="form-control" />
+                    <ValidationMessage For="@(() => prioridades.Descripcion)" />
                 </div>
 
-                @*Dias de compromiso*@
+
+              
+                @*Dias de Compromiso*@
                 <div class="mb-3">
-                    <label class="form-label" for="DiasCompromiso">Dias de Compromiso:</label>
-                    <InputText @bind-Value=Prioridades.DiasCompromiso class="form-control" />
-                    <ValidationMessage For="@(() => Prioridades.DiasCompromiso)" />
+                    <label class="form-label" for="Dias de Compromiso">Dias de Compromiso:</label>
+                    <InputText @bind-Value="prioridades.DiasCompromiso" class="form-control" />
+                    <ValidationMessage For="@(() => prioridades.DiasCompromiso)" />
                 </div>
+
 
             </div>
             <div class="card-footer d-flex justify-content-center">
@@ -50,30 +51,31 @@
 
 
 </EditForm>
+<label>@Mensaje</label>
 
 
 @code {
 
     [Parameter]
-    public Prioridades Prioridades { get; set; } = new Prioridades();
+    public Prioridades prioridades { get; set; } = new Prioridades();
     public string Mensaje { get; set; } = string.Empty;
 
 
 
-    public async void Buscar ()
+    public async void Buscar()
     {
-        var Encontrado = PrioridadesBLL.Buscar(Prioridades.PrioridadId);
+        var Encontrado = PrioridadesBLL.Buscar(prioridades.PrioridadId);
         if (Encontrado != null)
         {
-            Prioridades = Encontrado;
+            prioridades = Encontrado;
             Mensaje = string.Empty;
         }
-        
+
     }
 
     public void Nuevo()
     {
-        this.Prioridades = new Prioridades();
+        this.prioridades = new Prioridades();
     }
 
     public void Ocultar()
@@ -83,23 +85,23 @@
 
     public void Guardar()
     {
-        var guardo = PrioridadesBLL.Guardar(Prioridades);
+        var guardo = PrioridadesBLL.Guardar(prioridades);
         if (guardo)
         {
-        
+
             Nuevo();
         }
-        
+
     }
 
     public void Eliminar()
     {
-        var elimino = PrioridadesBLL.Eliminar(Prioridades);
+        var elimino = PrioridadesBLL.Eliminar(prioridades);
         if (elimino)
         {
-        
+
             Nuevo();
         }
-       
+
     }
 }

@@ -16,15 +16,18 @@
 
     private async void IncrementCount()
     {
-        var ticket = new Prioridades()
+        var ticket = new Cliente()
             {
-                Descripcion = "nada se imprime",
-                DiasCompromiso = 0
+                Nombre = "nada se imprime",
+                Telefono = 0,
+                Celular = 0,
+                Rnc = 0,
+                Direccion = "nada se imprime"
 		};
 
         //using var response = await Http.PostAsJsonAsync("api/Tickets", ticket);
         using var response = await Http.PostAsJsonAsync("api/Tickets", ticket);
-        var data = await response.Content.ReadFromJsonAsync<Prioridades>();
+        var data = await response.Content.ReadFromJsonAsync<Cliente>();
 
         currentCount++;
     }

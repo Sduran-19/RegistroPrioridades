@@ -11,27 +11,30 @@ namespace RegistroPrioridades.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            
+
             migrationBuilder.CreateTable(
-                name: "Prioridades",
+                name: "Cliente",
                 columns: table => new
                 {
-                    PrioridadId = table.Column<int>(type: "INTEGER", nullable: false)
+                    ClienteId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Descripcion = table.Column<string>(type: "TEXT", nullable: false),
-                    DiasCompromiso = table.Column<int>(type: "INTEGER", nullable: false)
+                    Nombre = table.Column<string>(type: "TEXT", nullable: false),
+                    Telefono = table.Column<int>(type: "INTEGER", nullable: false),
+                    Celular = table.Column<int>(type: "INTEGER", nullable: false),
+                    RNC = table.Column<int>(type: "INTEGER", nullable: false),
+                    Direccion = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Prioridades", x => x.PrioridadId);
-                });
+                    table.PrimaryKey("PK_Cliente", x => x.ClienteId);
+                }) ;
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Prioridades");
+                name: "Cliente");
         }
     }
 }

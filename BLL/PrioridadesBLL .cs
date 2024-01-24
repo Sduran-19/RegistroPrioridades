@@ -10,11 +10,11 @@ namespace RegistroPrioridades.BLL;
 
 public class PrioridadesBLL
 {
-    private readonly Contexto contexto;
+    private readonly Contexto context;
 
     public PrioridadesBLL(Contexto contexto)
     {
-        contexto = contexto;
+        context = contexto;
     }
 
     public bool Guardar(Prioridades prioridad)
@@ -27,40 +27,40 @@ public class PrioridadesBLL
 
     private bool Insertar(Prioridades prioridad)
     {
-        contexto.Prioridades.Add(prioridad);
-        int cantidad = contexto.SaveChanges();
+        context.Prioridades.Add(prioridad);
+        int cantidad = context.SaveChanges();
         return cantidad > 0;
     }
 
     public bool Modificar(Prioridades prioridad)
     {
-        contexto.Update(prioridad);
-        int cantidad = contexto.SaveChanges();
+        context.Update(prioridad);
+        int cantidad = context.SaveChanges();
         return cantidad > 0;
     }
 
     public bool Existe(int PrioridadId)
     {
-        return  contexto.Prioridades.Any(p => p.PrioridadId == PrioridadId);
+        return context.Prioridades.Any(p => p.PrioridadId == PrioridadId);
     }
 
     public bool Eliminar(Prioridades prioridad)
     {
-        contexto.Prioridades.Remove(prioridad);
-            int cantidad = contexto.SaveChanges();
+        context.Prioridades.Remove(prioridad);
+            int cantidad = context.SaveChanges();
         return cantidad > 0;   
     }
 
-    public Prioridades? Buscar(int prioridadId)
+    public Prioridades? Buscar(int PrioridadId)
     {
-        return contexto.Prioridades
+        return context.Prioridades
             .AsNoTracking()
-            .FirstOrDefault(p => p.PrioridadId == prioridadId);
+            .FirstOrDefault(p => p.PrioridadId == PrioridadId);
     }
 
     public List<Prioridades> GetList(Expression<Func<Prioridades, bool>> criterio)
     {
-        return contexto.Prioridades.Where(criterio).ToList();
+        return context.Prioridades.Where(criterio).ToList();
     }
         
 }

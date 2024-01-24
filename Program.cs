@@ -23,6 +23,12 @@ builder.Services.AddDbContext<Contexto>(Options => Options.UseSqlite(Constr));
 
 builder.Services.AddScoped<PrioridadesBLL>();
 
+builder.Services.AddScoped<ClienteBLL>();
+
+builder.Services.AddHttpClient();
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
