@@ -1,10 +1,33 @@
+using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.AspNetCore.Components.Server;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.EntityFrameworkCore;
+using RegistroPrioridades.DAL;
+using Microsoft.Extensions.Options;
+using RegistroPrioridades.BLL;
 using RegistroPrioridades.Components;
+;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+var Constr = builder.Configuration.GetConnectionString("ConStr");
+
+builder.Services.AddDbContext<Contexto>(Options => Options.UseSqlite(Constr));
+
+builder.Services.AddScoped<PrioridadesBLL>();
+
+builder.Services.AddScoped<ClienteBLL>();
+
+builder.Services.AddHttpClient();
+
+
 
 var app = builder.Build();
 
@@ -25,3 +48,4 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
 app.Run();
+

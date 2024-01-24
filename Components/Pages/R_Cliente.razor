@@ -1,0 +1,126 @@
+﻿@page "/cliente"
+@rendermode InteractiveServer
+@inject ClienteBLL ClienteBLL
+
+
+
+<EditForm Model="cliente" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+
+    <div class="container">
+        <div class="card shadow-lg">
+            <div class="card-header">
+                <h3>Registro de Cliente.</h3>
+            </div>
+            <div class=card-body>
+
+                @*ClienteId:*@
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
+                    <label>Cliente Id:</label>
+                    <div class="input-group mb-3">
+                        <InputNumber @bind-Value="cliente.ClienteId" class="form-control" aria-describedby="BotonBuscar" />
+                        <button @onclick="Buscar" class="btn btn-outline-primary" type="button" id="BotonBuscar"><i class="oi oi-magnifying-glass" /></button>
+                    </div>
+                </div>
+
+                @*Nombres*@
+                <div class="mb-3">
+                    <label class="form-label" for="Nombre">Nombre:</label>
+                    <InputText @bind-Value="cliente.Nombre" class="form-control" />
+                    <ValidationMessage For="@(() => cliente.Nombre)" />
+                </div>
+
+                @*Telefono*@
+                <div class="mb-3">
+                    <label class="form-label" for="Telefono">Telefono:</label>
+                    <InputNumber @bind-Value=cliente.Telefono class="form-control" />
+                    <ValidationMessage For="@(() => cliente.Telefono)" />
+                </div
+
+                 @*Celular*@
+                <div class="mb-3">
+                    <label class="form-label" for="Celular">Celular:</label>
+                    <InputNumber @bind-Value=cliente.Celular class="form-control" />
+                    <ValidationMessage For="@(() => cliente.Celular)" />
+                </div>
+
+                  @*RNC*@
+                <div class="mb-3">
+                    <label class="form-label" for="Rnc">Rnc:</label>
+                    <InputNumber @bind-Value=cliente.Rnc class="form-control" />
+                    <ValidationMessage For="@(() => cliente.Rnc)" />
+                </div>
+
+                 @*Direccion*@
+                <div class="mb-3">
+                    <label class="form-label" for="Direccion">Direccion:</label>
+                    <InputText @bind-Value="cliente.Direccion" class="form-control" />
+                    <ValidationMessage For="@(() => cliente.Direccion)" />
+                </div>
+
+            </div>
+            <div class="card-footer d-flex justify-content-center">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-outline-primary" @onclick="Nuevo">Nuevo <i class="oi oi-file" /></button>
+                    <button type="submit" class="btn btn-outline-success">Guardar <i class="oi oi-document" /></button>
+                    <button type="button" class="btn btn-outline-danger" @onclick="Eliminar">Eliminar <i class="oi oi-trash" /></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</EditForm>
+
+
+@code {
+
+    [Parameter]
+    public Cliente cliente { get; set; } = new Cliente();
+    public string Mensaje { get; set; } = string.Empty;
+
+
+
+    public async void Buscar ()
+    {
+        var Encontrado = ClienteBLL.Buscar(cliente.ClienteId);
+        if (Encontrado != null)
+        {
+            cliente = Encontrado;
+            Mensaje = string.Empty;
+        }
+        
+    }
+
+    public void Nuevo()
+    {
+        this.cliente = new Cliente();
+    }
+
+    public void Ocultar()
+    {
+        Mensaje = string.Empty;
+    }
+
+    public void Guardar()
+    {
+        var guardo = ClienteBLL.Guardar(cliente);
+        if (guardo)
+        {
+        
+            Nuevo();
+        }
+        
+    }
+
+    public void Eliminar()
+    {
+        var elimino = ClienteBLL.Eliminar(cliente);
+        if (elimino)
+        {
+        
+            Nuevo();
+        }
+       
+    }
+}
