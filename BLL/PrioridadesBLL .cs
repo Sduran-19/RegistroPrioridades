@@ -17,50 +17,54 @@ public class PrioridadesBLL
         context = contexto;
     }
 
-    public bool Guardar(Prioridades prioridad)
+    public async Task<bool> Insertar(Prioridades clientes)
     {
-        if (!Existe(prioridad.PrioridadId))
-            return Insertar(prioridad);
+        context.Prioridades.Add(clientes);
+        return await context.SaveChangesAsync() > 0;
+    }
+
+    public async Task<bool> Modificar(Prioridades clientes)
+    {
+        context.Update(clientes);
+        return await context.SaveChangesAsync() > 0;
+    }
+
+    public async Task<bool> Existe(int ClienteId)
+    {
+        return await context.Prioridades.AnyAsync(t => t.PrioridadId == ClienteId);
+    }
+
+    public async Task<bool> Guardar(Prioridades clientes)
+    {
+        if (!await Existe(clientes.PrioridadId))
+            return await Insertar(clientes);
         else
-            return Modificar(prioridad);
+            return await Modificar(clientes);
     }
 
-    private bool Insertar(Prioridades prioridad)
+    public async Task<bool> Eliminar(Prioridades clientes)
     {
-        context.Prioridades.Add(prioridad);
-        int cantidad = context.SaveChanges();
+        var cantidad = await context.Prioridades
+            .Where(p => p.PrioridadId == clientes.PrioridadId)
+            .ExecuteDeleteAsync();
+
         return cantidad > 0;
     }
 
-    public bool Modificar(Prioridades prioridad)
+    public async Task<Prioridades?> Buscar(int PrioridadId)
     {
-        context.Update(prioridad);
-        int cantidad = context.SaveChanges();
-        return cantidad > 0;
-    }
-
-    public bool Existe(int PrioridadId)
-    {
-        return context.Prioridades.Any(p => p.PrioridadId == PrioridadId);
-    }
-
-    public bool Eliminar(Prioridades prioridad)
-    {
-        context.Prioridades.Remove(prioridad);
-            int cantidad = context.SaveChanges();
-        return cantidad > 0;   
-    }
-
-    public Prioridades? Buscar(int PrioridadId)
-    {
-        return context.Prioridades
+        return await context.Prioridades
+            .Where(t => t.PrioridadId == PrioridadId)
             .AsNoTracking()
-            .FirstOrDefault(p => p.PrioridadId == PrioridadId);
+            .SingleOrDefaultAsync();
     }
 
-    public List<Prioridades> GetList(Expression<Func<Prioridades, bool>> criterio)
+    public async Task<List<Prioridades>> Listar(Expression<Func<Prioridades, bool>> Criterio)
     {
-        return context.Prioridades.Where(criterio).ToList();
+        return await context.Prioridades
+            .Where(Criterio)
+            .AsNoTracking()
+            .ToListAsync();
     }
-        
+
 }
