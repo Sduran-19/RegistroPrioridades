@@ -60,11 +60,11 @@
     public Prioridades prioridades { get; set; } = new Prioridades();
     public string Mensaje { get; set; } = string.Empty;
 
-
+   
 
     public async void Buscar()
     {
-        var Encontrado = PrioridadesBLL.Buscar(prioridades.PrioridadId);
+        var Encontrado = await PrioridadesBLL.Buscar(prioridades.PrioridadId);
         if (Encontrado != null)
         {
             prioridades = Encontrado;
@@ -83,10 +83,10 @@
         Mensaje = string.Empty;
     }
 
-    public void Guardar()
+    public async void Guardar()
     {
         var guardo = PrioridadesBLL.Guardar(prioridades);
-        if (guardo)
+        if (await guardo)
         {
 
             Nuevo();
@@ -94,10 +94,10 @@
 
     }
 
-    public void Eliminar()
+    public async void Eliminar()
     {
         var elimino = PrioridadesBLL.Eliminar(prioridades);
-        if (elimino)
+        if (await elimino)
         {
 
             Nuevo();

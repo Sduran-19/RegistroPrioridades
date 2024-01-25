@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RegistroPrioridades.Models;
 
@@ -25,5 +26,6 @@ public class Cliente
     [Required(ErrorMessage = "Este Campo es Obligatorio")]
     public string Direccion { get; set; }
 
+  
 
 }

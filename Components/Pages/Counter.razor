@@ -12,11 +12,10 @@
 
 @code {
     private int currentCount = 0;
-    private const string V = "Cantidad de dias";
 
     private async void IncrementCount()
     {
-        var ticket = new Cliente()
+        var Cliente = new Cliente()
             {
                 Nombre = "nada se imprime",
                 Telefono = 0,
@@ -26,7 +25,7 @@
 		};
 
         //using var response = await Http.PostAsJsonAsync("api/Tickets", ticket);
-        using var response = await Http.PostAsJsonAsync("api/Tickets", ticket);
+        using var response = await Http.PostAsJsonAsync("api/Cliente", Cliente);
         var data = await response.Content.ReadFromJsonAsync<Cliente>();
 
         currentCount++;

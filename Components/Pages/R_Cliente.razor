@@ -1,7 +1,7 @@
 ﻿@page "/cliente"
 @rendermode InteractiveServer
 @inject ClienteBLL ClienteBLL
-
+@inject HttpClient httpClient
 
 
 <EditForm Model="cliente" OnValidSubmit="Guardar">
@@ -102,15 +102,15 @@
         Mensaje = string.Empty;
     }
 
-    public void Guardar()
+     public void Guardar()
     {
         var guardo = ClienteBLL.Guardar(cliente);
         if (guardo)
         {
-        
+
             Nuevo();
         }
-        
+
     }
 
     public void Eliminar()
