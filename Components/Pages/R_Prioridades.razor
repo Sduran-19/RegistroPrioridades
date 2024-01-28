@@ -1,5 +1,6 @@
 ﻿@page "/Prioridades"
 @rendermode InteractiveServer
+@inject HttpClient httpClient
 @inject PrioridadesBLL PrioridadesBLL
 
 <EditForm Model="prioridades" OnValidSubmit="Guardar">
