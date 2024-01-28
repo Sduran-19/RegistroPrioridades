@@ -25,6 +25,8 @@ builder.Services.AddScoped<PrioridadesBLL>();
 
 builder.Services.AddScoped<ClienteBLL>();
 
+builder.Services.AddScoped<TicketsBLL>();
+
 builder.Services.AddHttpClient();
 
 

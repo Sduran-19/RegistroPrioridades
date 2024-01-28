@@ -17,50 +17,54 @@ public class ClienteBLL
         _contexto = contexto;
     }
 
-    public bool Guardar(Cliente cliente)
+    public async Task<bool> Insertar(Cliente clientes)
     {
-        if (!Existe(cliente.ClienteId))
-            return Insertar(cliente);
+        _contexto.Cliente.Add(clientes);
+        return await _contexto.SaveChangesAsync() > 0;
+    }
+
+    public async Task<bool> Modificar(Cliente clientes)
+    {
+        _contexto.Update(clientes);
+        return await _contexto.SaveChangesAsync() > 0;
+    }
+
+    public async Task<bool> Existe(int ClienteId)
+    {
+        return await _contexto.Cliente.AnyAsync(t => t.ClienteId == ClienteId);
+    }
+
+    public async Task<bool> Guardar(Cliente clientes)
+    {
+        if (!await Existe(clientes.ClienteId))
+            return await Insertar(clientes);
         else
-            return Modificar(cliente);
+            return await Modificar(clientes);
     }
 
-    private bool Insertar(Cliente cliente)
+    public async Task<bool> Eliminar(Cliente clientes)
     {
-        _contexto.Cliente.Add(cliente);
-        int cantidad = _contexto.SaveChanges();
+        var cantidad = await _contexto.Cliente
+            .Where(p => p.ClienteId == clientes.ClienteId)
+            .ExecuteDeleteAsync();
+
         return cantidad > 0;
     }
 
-    public bool Modificar(Cliente cliente)
+    public async Task<Cliente?> Buscar(int ClienteId)
     {
-        _contexto.Update(cliente);
-        int cantidad = _contexto.SaveChanges();
-        return cantidad > 0;
-    }
-
-    public bool Existe(int ClienteId)
-    {
-        return  _contexto.Cliente.Any(p => p.ClienteId == ClienteId);
-    }
-
-    public bool Eliminar(Cliente prioridad)
-    {
-        _contexto.Cliente.Remove(prioridad);
-            int cantidad = _contexto.SaveChanges();
-        return cantidad > 0;   
-    }
-
-    public Cliente? Buscar(int ClienteId)
-    {
-        return _contexto.Cliente
+        return await _contexto.Cliente
+            .Where(t => t.ClienteId == ClienteId)
             .AsNoTracking()
-            .FirstOrDefault(p => p.ClienteId == ClienteId);
+            .SingleOrDefaultAsync();
     }
 
-    public List<Cliente> GetList(Expression<Func<Cliente, bool>> criterio)
+    public async Task<List<Cliente>> Listar(Expression<Func<Cliente, bool>> Criterio)
     {
-        return _contexto.Cliente.Where(criterio).ToList();
+        return await _contexto.Cliente
+            .Where(Criterio)
+            .AsNoTracking()
+            .ToListAsync();
     }
-        
+
 }

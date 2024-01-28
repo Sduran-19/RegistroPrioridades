@@ -1,48 +1,42 @@
-﻿@page "/consultacliente"
+﻿@page "/tickets"
 @using System.Linq.Expressions
 @inject HttpClient httpClient
-@inject ClienteBLL clienteBLL
-
-
+@inject TicketsBLL ticketsBLL
 
 <div class="card">
     <div class="card-header">
-        <h3>Consulta de Cliente</h3>
+        <h3>Consulta de Tickets</h3>
     </div>
 
     <div class="card-body">
-     
+        
             <button type="button" @onclick="Buscar" class="btn btn-primary input-group-text">
                 <i class="oi oi-magnifying-glass " /> Buscar
             </button>
-      
-        @if (cliente is not null)
+       
+        @if (Ticket is not null)
         {
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>ClienteId</th>
-                        <th>Nombre</th>
-                        <th>Telefono</th>
-                        <th>Celular</th>
-                        <th>Rnc</th>
-                        <th>Email</th>
-                        <th>Direccion</th>
+                        <th>TicketId</th>
+                        <th>Fecha</th>
+                        <th>Solicitado Por</th>
+                        <th>Asunto</th>
+                        <th>Descripci&oacute;n</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var clientes in cliente)
+                    @foreach (var ticket in Ticket)
                     {
                         <tr>
-                            <td>@clientes.ClienteId</td>
-                            <td>@clientes.Nombre</td>
-                            <td>@clientes.Telefono</td>
-                            <td>@clientes.Celular</td>
-                            <td>@clientes.Rnc</td>
-                            <td>@clientes.Email</td>
-                            <td>@clientes.Direccion</td>
-                            <td><a href="clientes/@clientes.ClienteId">Ver</a></td>
+                            <td>@ticket.TicketId</td>
+                            <td>@ticket.Fecha.ToString("dd/MM/yyyy")</td>
+                            <td>@ticket.SolicitadoPor</td>
+                            <td>@ticket.Asunto</td>
+                            <td>@ticket.Descripcion</td>
+                            <td><a href="Ticket/@ticket.TicketId">Ver</a></td> 
                         </tr>
                     }
 
@@ -62,15 +56,16 @@
 </div>
 
 @code {
-    public Cliente clientes { set; get; } = new Cliente();
-    public List<Cliente>? cliente { get; set; }
+    public Ticket tickets { set; get; } = new Ticket();
+    public List<Ticket>? Ticket { get; set; }
     public int conteo { get; set; }
 
     public async Task Buscar()
     {
-        Expression<Func<Cliente, bool>> criterios = prioriades => clientes.ClienteId > 0;
+        Expression<Func<Ticket, bool>> criterio = Ticket => tickets.TicketId > 0;
 
-        cliente = await clienteBLL.Listar(criterios);
+
+        Ticket = await ticketsBLL.Listar(criterio);
 
     }
 }
