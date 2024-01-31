@@ -8,11 +8,11 @@ using System.Runtime.InteropServices;
 
 namespace RegistroPrioridades.BLL;
 
-public class PrioridadesBLL
+public class PrioridadesService
 {
     private readonly Contexto context;
 
-    public PrioridadesBLL(Contexto contexto)
+    public PrioridadesService(Contexto contexto)
     {
         context = contexto;
     }

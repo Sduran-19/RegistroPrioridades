@@ -1,7 +1,7 @@
 ﻿@page "/colsultaprioridades"
 @using System.Linq.Expressions
 @inject HttpClient httpClient
-@inject PrioridadesBLL prioridadesBLL
+@inject PrioridadesService prioridadesService
 
 <div class="card">
     <div class="card-header">
@@ -62,7 +62,7 @@
         Expression<Func<Prioridades, bool>> criterio = prioriades => prioridad.PrioridadId > 0;
 
 
-        prioridades = await prioridadesBLL.Listar(criterio);
+        prioridades = await prioridadesService.Listar(criterio);
 
     }
 

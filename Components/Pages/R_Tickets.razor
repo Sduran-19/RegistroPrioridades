@@ -1,7 +1,7 @@
 ﻿@page "/Ticket"
 @inject HttpClient httpClient
 @rendermode InteractiveServer
-@inject TicketsBLL TicketsBLL
+@inject TicketsService TicketsService
 
 <EditForm Model="Ticket" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
@@ -90,7 +90,7 @@
 
 
 </EditForm>
-<label>@Mensaje</label>
+
 
 
 @code {

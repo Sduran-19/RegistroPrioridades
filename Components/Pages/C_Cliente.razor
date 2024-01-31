@@ -1,7 +1,7 @@
 ﻿@page "/consultacliente"
 @using System.Linq.Expressions
 @inject HttpClient httpClient
-@inject ClienteBLL clienteBLL
+@inject ClienteService clienteService
 
 
 
@@ -70,7 +70,7 @@
     {
         Expression<Func<Cliente, bool>> criterios = prioriades => clientes.ClienteId > 0;
 
-        cliente = await clienteBLL.Listar(criterios);
+        cliente = await clienteService.Listar(criterios);
 
     }
 }

@@ -21,11 +21,11 @@ var Constr = builder.Configuration.GetConnectionString("ConStr");
 
 builder.Services.AddDbContext<Contexto>(Options => Options.UseSqlite(Constr));
 
-builder.Services.AddScoped<PrioridadesBLL>();
+builder.Services.AddScoped<PrioridadesService>();
 
-builder.Services.AddScoped<ClienteBLL>();
+builder.Services.AddScoped<ClienteService>();
 
-builder.Services.AddScoped<TicketsBLL>();
+builder.Services.AddScoped<TicketsService>();
 
 builder.Services.AddHttpClient();
 

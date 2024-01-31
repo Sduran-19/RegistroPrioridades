@@ -9,11 +9,11 @@ using System.Runtime.InteropServices;
 
 namespace RegistroPrioridades.BLL;
 
-public class TicketsBLL
+public class TicketsService
 {
     private readonly Contexto contexto;
 
-    public TicketsBLL(Contexto contexto)
+    public TicketsService(Contexto contexto)
     {
         contexto = contexto;
     }

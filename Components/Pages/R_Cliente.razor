@@ -1,6 +1,6 @@
 ﻿@page "/cliente"
 @rendermode InteractiveServer
-@inject ClienteBLL ClienteBLL
+@inject ClienteService ClienteService
 @inject HttpClient httpClient
 
 
@@ -83,7 +83,7 @@
 
     public async void Buscar ()
     {
-        var Encontrado = await ClienteBLL.Buscar(cliente.ClienteId);
+        var Encontrado = await ClienteService.Buscar(cliente.ClienteId);
         if (Encontrado != null)
         {
             cliente = Encontrado;
@@ -104,7 +104,7 @@
 
      public async  void Guardar()
     {
-        var guardo = ClienteBLL.Guardar(cliente);
+        var guardo = ClienteService.Guardar(cliente);
         if (await guardo)
         {
 
@@ -115,7 +115,7 @@
 
     public async  void Eliminar()
     {
-        var elimino = ClienteBLL.Eliminar(cliente);
+        var elimino = ClienteService.Eliminar(cliente);
         if (await elimino)
         {
         

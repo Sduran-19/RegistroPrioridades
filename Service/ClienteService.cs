@@ -8,11 +8,11 @@ using System.Runtime.InteropServices;
 
 namespace RegistroPrioridades.BLL;
 
-public class ClienteBLL
+public class ClienteService
 {
     private readonly Contexto _contexto;
 
-    public ClienteBLL(Contexto contexto)
+    public ClienteService(Contexto contexto)
     {
         _contexto = contexto;
     }

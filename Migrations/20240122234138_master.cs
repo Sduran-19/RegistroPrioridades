@@ -33,7 +33,7 @@ namespace RegistroPrioridades.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Prioridades", x => x.PrioridadId);
+                    table.PrimaryKey("PK_Cliente", x => x.PrioridadId);
                 });
         }
 
@@ -41,7 +41,7 @@ namespace RegistroPrioridades.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Prioridades");
+                name: "Cliente");
 
             migrationBuilder.DropColumn(
                 name: "Email",
