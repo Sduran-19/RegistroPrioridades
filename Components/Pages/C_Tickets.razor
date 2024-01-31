@@ -1,7 +1,7 @@
 ﻿@page "/tickets"
 @using System.Linq.Expressions
 @inject HttpClient httpClient
-@inject TicketsBLL ticketsBLL
+@inject TicketsService TicketsService
 
 <div class="card">
     <div class="card-header">
@@ -65,7 +65,7 @@
         Expression<Func<Ticket, bool>> criterio = Ticket => tickets.TicketId > 0;
 
 
-        Ticket = await ticketsBLL.Listar(criterio);
+        Ticket = await TicketsService.Listar(criterio);
 
     }
 }
