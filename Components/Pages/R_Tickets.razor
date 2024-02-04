@@ -100,7 +100,7 @@
 
     public int TicketId { get; set; }
 
-    public Ticket Ticket { get; set; } = new Ticket();
+    public Tickets Ticket { get; set; } = new Tickets();
 
     public string Mensaje { get; set; } = string.Empty;
 
@@ -121,7 +121,7 @@
             Mensaje = response.ReasonPhrase ?? "error";
             return;
         }
-        var ticketDevuelto = await response.Content.ReadFromJsonAsync<Ticket>();
+        var ticketDevuelto = await response.Content.ReadFromJsonAsync<Tickets>();
         if (ticketDevuelto is not null)
         {
             Ticket = ticketDevuelto;

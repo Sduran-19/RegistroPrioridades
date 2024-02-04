@@ -1,6 +1,6 @@
 ﻿@page "/cliente"
 @rendermode InteractiveServer
-@inject ClienteService ClienteService
+@inject ClientesService ClientesService
 @inject HttpClient httpClient
 
 
@@ -75,7 +75,7 @@
 
     [Parameter]
     public int ClienteId { get; set; }
-    public Cliente cliente { get; set; } = new Cliente();
+    public Clientes cliente { get; set; } = new Clientes();
     public string Mensaje { get; set; } = string.Empty;
 
 
@@ -93,13 +93,13 @@
 
     public async Task Crear()
     {
-        using var response = await httpClient.PostAsJsonAsync("api/Prioridad", cliente);
+        using var response = await httpClient.PostAsJsonAsync("api/Cliente", cliente);
         if (!response.IsSuccessStatusCode)
         {
             Mensaje = response.ReasonPhrase ?? "error";
             return;
         }
-        var clienteDevuelto = await response.Content.ReadFromJsonAsync<Cliente>();
+        var clienteDevuelto = await response.Content.ReadFromJsonAsync<Clientes>();
         if (clienteDevuelto is not null)
         {
             cliente = clienteDevuelto;

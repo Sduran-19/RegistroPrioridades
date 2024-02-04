@@ -10,10 +10,10 @@ namespace RegistroPrioridades.Service;
 
 public class PrioridadesService
 {
-    private readonly Contexto context;
+    private readonly Contextos context;
 
 
-    public PrioridadesService(Contexto contexto)
+    public PrioridadesService(Contextos contexto)
     {
         context = contexto;
     }

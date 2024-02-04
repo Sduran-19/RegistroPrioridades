@@ -11,20 +11,20 @@ namespace RegistroPrioridades.Service;
 
 public class TicketsService
 {
-    private readonly Contexto contexto;
+    private readonly Contextos contexto;
 
-    public TicketsService(Contexto contexto)
+    public TicketsService(Contextos contexto)
     {
         contexto = contexto;
     }
 
-    public async Task<bool> Insertar(Ticket tickets)
+    public async Task<bool> Insertar(Tickets tickets)
     {
         contexto.Ticket.Add(tickets);
         return await contexto.SaveChangesAsync() > 0;
     }
 
-    public async Task<bool> Modificar(Ticket tickets)
+    public async Task<bool> Modificar(Tickets tickets)
     {
         contexto.Update(tickets);
         return await contexto.SaveChangesAsync() > 0;
@@ -35,7 +35,7 @@ public class TicketsService
         return await contexto.Ticket.AnyAsync(t => t.TicketId == TicketId);
     }
 
-    public async Task<bool> Crear(Ticket tickets)
+    public async Task<bool> Crear(Tickets tickets)
     {
         if (!await Existe(tickets.TicketId))
             return await Insertar(tickets);
@@ -43,7 +43,7 @@ public class TicketsService
             return await Modificar(tickets);
     }
 
-    public async Task<bool> Eliminar(Ticket tickets)
+    public async Task<bool> Eliminar(Tickets tickets)
     {
         var cantidad = await contexto.Ticket
             .Where(p => p.TicketId == tickets.TicketId)
@@ -52,7 +52,7 @@ public class TicketsService
         return cantidad > 0;
     }
 
-    public async Task<Ticket?> Buscar(int TicketId)
+    public async Task<Tickets?> Buscar(int TicketId)
     {
         return await contexto.Ticket
             .Where(t => t.TicketId == TicketId)
@@ -60,7 +60,7 @@ public class TicketsService
             .SingleOrDefaultAsync();
     }
 
-    public async Task<List<Ticket>> Listar(Expression<Func<Ticket, bool>> Criterio)
+    public async Task<List<Tickets>> Listar(Expression<Func<Tickets, bool>> Criterio)
     {
         return await contexto.Ticket
             .Where(Criterio)

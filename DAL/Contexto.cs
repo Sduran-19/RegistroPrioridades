@@ -3,13 +3,13 @@ using RegistroPrioridades.Models;
 
 namespace RegistroPrioridades.DAL;
 
-public class Contexto : DbContext
+public class Contextos : DbContext
 {
-    public Contexto(DbContextOptions<Contexto> options)
+    public Contextos(DbContextOptions<Contextos> options)
         : base(options) { }
     public DbSet<Prioridades> Prioridades { get; set; } 
-    public DbSet<Cliente> Cliente { get; set; }
+    public DbSet<Clientes> Cliente { get; set; }
 
-    public DbSet<Ticket> Ticket { get; set; }
+    public DbSet<Tickets> Ticket { get; set; }
 
 }
