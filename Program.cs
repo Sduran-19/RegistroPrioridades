@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
 using RegistroPrioridades.DAL;
 using Microsoft.Extensions.Options;
-using RegistroPrioridades.BLL;
+using RegistroPrioridades.Service;
 using RegistroPrioridades.Components;
 ;
 
