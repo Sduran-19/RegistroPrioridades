@@ -34,7 +34,7 @@ public class ClienteService
         return await _contexto.Cliente.AnyAsync(t => t.ClienteId == ClienteId);
     }
 
-    public async Task<bool> Guardar(Cliente clientes)
+    public async Task<bool> Crear(Cliente clientes)
     {
         if (!await Existe(clientes.ClienteId))
             return await Insertar(clientes);

@@ -35,7 +35,7 @@ public class TicketsService
         return await contexto.Ticket.AnyAsync(t => t.TicketId == TicketId);
     }
 
-    public async Task<bool> Guardar(Ticket tickets)
+    public async Task<bool> Crear(Ticket tickets)
     {
         if (!await Existe(tickets.TicketId))
             return await Insertar(tickets);

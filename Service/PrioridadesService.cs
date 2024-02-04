@@ -35,7 +35,7 @@ public class PrioridadesService
         return await context.Prioridades.AnyAsync(t => t.PrioridadId == ClienteId);
     }
 
-    public async Task<bool> Guardar(Prioridades prioridades)
+    public async Task<bool> Crear(Prioridades prioridades)
     {
         if (!await Existe(prioridades.PrioridadId))
         {
