@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 
 
-namespace RegistroPrioridades.BLL;
+namespace RegistroPrioridades.Service;
 
 public class ClienteService
 {

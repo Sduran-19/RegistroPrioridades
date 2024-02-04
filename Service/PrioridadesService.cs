@@ -6,11 +6,12 @@ using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 
 
-namespace RegistroPrioridades.BLL;
+namespace RegistroPrioridades.Service;
 
 public class PrioridadesService
 {
     private readonly Contexto context;
+
 
     public PrioridadesService(Contexto contexto)
     {
@@ -34,12 +35,16 @@ public class PrioridadesService
         return await context.Prioridades.AnyAsync(t => t.PrioridadId == ClienteId);
     }
 
-    public async Task<bool> Guardar(Prioridades clientes)
+    public async Task<bool> Guardar(Prioridades prioridades)
     {
-        if (!await Existe(clientes.PrioridadId))
-            return await Insertar(clientes);
+        if (!await Existe(prioridades.PrioridadId))
+        {
+            return await Insertar(prioridades);
+        }
         else
-            return await Modificar(clientes);
+        {
+            return await Modificar(prioridades);
+        }
     }
 
     public async Task<bool> Eliminar(Prioridades clientes)

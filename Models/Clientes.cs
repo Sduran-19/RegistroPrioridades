@@ -12,10 +12,10 @@ public class Cliente
     public string? Nombre { get; set; }
 
     [Required(ErrorMessage = "Este Campo es Obligatorio")]
-    public int Telefono { get; set; }
+    public string Telefono { get; set; }
 
     [Required(ErrorMessage = "Este Campo es Obligatorio")]
-    public int Celular { get; set; }
+    public string Celular { get; set; }
 
     [Required(ErrorMessage = "Este Campo es Obligatorio")]
     public int Rnc { get; set; }

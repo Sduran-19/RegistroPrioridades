@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 
 
 
-namespace RegistroPrioridades.BLL;
+namespace RegistroPrioridades.Service;
 
 public class TicketsService
 {

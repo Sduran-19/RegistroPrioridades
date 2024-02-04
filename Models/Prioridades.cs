@@ -11,7 +11,7 @@ public class Prioridades
     public string? Descripcion { get; set; }
 
     [Required(ErrorMessage = "Este Campo es Obligatorio")]
-    public string DiasCompromiso { get; set; }
+    public int DiasCompromiso { get; set; }
 
 
 }

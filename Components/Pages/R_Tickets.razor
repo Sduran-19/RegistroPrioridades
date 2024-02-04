@@ -3,6 +3,7 @@
 @rendermode InteractiveServer
 @inject TicketsService TicketsService
 
+
 <EditForm Model="Ticket" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
 
@@ -17,8 +18,8 @@
                 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
                     <label>Ticket Id:</label>
                     <div class="input-group mb-3">
-                        <InputNumber @bind-Value="Ticket.TicketId" class="form-control" aria-describedby="BotonBuscar" />
-                        <button @onclick="Buscar" class="btn btn-outline-primary" type="button" id="BotonBuscar"><i class="oi oi-magnifying-glass" /></button>
+                        <InputNumber @bind-Value="Ticket.TicketId" class="form-control"  />
+                        
                     </div>
                 </div>
 
@@ -33,8 +34,8 @@
                 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
                     <label>Cliente Id:</label>
                     <div class="input-group mb-3">
-                        <InputNumber @bind-Value="Ticket.ClienteId" class="form-control" aria-describedby="BotonBuscar" />
-                        <button @onclick="Buscar" class="btn btn-outline-primary" type="button" id="BotonBuscar"><i class="oi oi-magnifying-glass" /></button>
+                        <InputNumber @bind-Value="Ticket.ClienteId" class="form-control"  />
+                      
                     </div>
                 </div>
 
@@ -42,8 +43,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
                     <label>Sistema Id:</label>
                     <div class="input-group mb-3">
-                        <InputNumber @bind-Value="Ticket.SistemaId" class="form-control" aria-describedby="BotonBuscar" />
-                        <button @onclick="Buscar" class="btn btn-outline-primary" type="button" id="BotonBuscar"><i class="oi oi-magnifying-glass" /></button>
+                        <InputNumber @bind-Value="Ticket.SistemaId" class="form-control" />
                     </div>
                 </div>
 
@@ -51,8 +51,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
                     <label>Prioridad Id:</label>
                     <div class="input-group mb-3">
-                        <InputNumber @bind-Value="Ticket.PrioridadId" class="form-control" aria-describedby="BotonBuscar" />
-                        <button @onclick="Buscar" class="btn btn-outline-primary" type="button" id="BotonBuscar"><i class="oi oi-magnifying-glass" /></button>
+                        <InputNumber @bind-Value="Ticket.PrioridadId" class="form-control" />
                     </div>
                 </div>
 

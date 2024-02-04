@@ -18,12 +18,12 @@
         var Cliente = new Cliente()
             {
                 Nombre = "nada se imprime",
-                Telefono = 0,
-                Celular = 0,
+                Telefono = "Numero",
+                Celular = "Numero",
                 Rnc = 0,
                 Direccion = "nada se imprime"
 		};
-
+        
         //using var response = await Http.PostAsJsonAsync("api/Tickets", ticket);
         using var response = await Http.PostAsJsonAsync("api/Cliente", Cliente);
         var data = await response.Content.ReadFromJsonAsync<Cliente>();
