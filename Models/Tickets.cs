@@ -2,7 +2,7 @@
 
 namespace RegistroPrioridades.Models;
 
-public class Ticket
+public class Tickets
 {
     [Key]
     public int TicketId { get; set; }

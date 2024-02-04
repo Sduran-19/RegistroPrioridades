@@ -8,22 +8,22 @@ using System.Runtime.InteropServices;
 
 namespace RegistroPrioridades.Service;
 
-public class ClienteService
+public class ClientesService
 {
-    private readonly Contexto _contexto;
+    private readonly Contextos _contexto;
 
-    public ClienteService(Contexto contexto)
+    public ClientesService(Contextos contexto)
     {
         _contexto = contexto;
     }
 
-    public async Task<bool> Insertar(Cliente clientes)
+    public async Task<bool> Insertar(Clientes clientes)
     {
         _contexto.Cliente.Add(clientes);
         return await _contexto.SaveChangesAsync() > 0;
     }
 
-    public async Task<bool> Modificar(Cliente clientes)
+    public async Task<bool> Modificar(Clientes clientes)
     {
         _contexto.Update(clientes);
         return await _contexto.SaveChangesAsync() > 0;
@@ -34,7 +34,7 @@ public class ClienteService
         return await _contexto.Cliente.AnyAsync(t => t.ClienteId == ClienteId);
     }
 
-    public async Task<bool> Guardar(Cliente clientes)
+    public async Task<bool> Crear(Clientes clientes)
     {
         if (!await Existe(clientes.ClienteId))
             return await Insertar(clientes);
@@ -42,7 +42,7 @@ public class ClienteService
             return await Modificar(clientes);
     }
 
-    public async Task<bool> Eliminar(Cliente clientes)
+    public async Task<bool> Eliminar(Clientes clientes)
     {
         var cantidad = await _contexto.Cliente
             .Where(p => p.ClienteId == clientes.ClienteId)
@@ -51,7 +51,7 @@ public class ClienteService
         return cantidad > 0;
     }
 
-    public async Task<Cliente?> Buscar(int ClienteId)
+    public async Task<Clientes?> Buscar(int ClienteId)
     {
         return await _contexto.Cliente
             .Where(t => t.ClienteId == ClienteId)
@@ -59,7 +59,7 @@ public class ClienteService
             .SingleOrDefaultAsync();
     }
 
-    public async Task<List<Cliente>> Listar(Expression<Func<Cliente, bool>> Criterio)
+    public async Task<List<Clientes>> Listar(Expression<Func<Clientes, bool>> Criterio)
     {
         return await _contexto.Cliente
             .Where(Criterio)

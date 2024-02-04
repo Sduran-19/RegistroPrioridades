@@ -1,10 +1,10 @@
 ﻿@page "/cliente"
 @rendermode InteractiveServer
-@inject ClienteService ClienteService
+@inject ClientesService ClientesService
 @inject HttpClient httpClient
 
 
-<EditForm Model="cliente" OnValidSubmit="Guardar">
+<EditForm Model="cliente" OnValidSubmit="Crear">
     <DataAnnotationsValidator />
 
     <div class="container">
@@ -58,12 +58,11 @@
                 </div>
 
             </div>
-            <div class="card-footer d-flex justify-content-center">
+             <div class="card-footer d-flex justify-content-between">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-outline-primary" @onclick="Nuevo">Nuevo <i class="oi oi-file" /></button>
-                    <button type="submit" class="btn btn-outline-success">Guardar <i class="oi oi-document" /></button>
-                    <button type="button" class="btn btn-outline-danger" @onclick="Eliminar">Eliminar <i class="oi oi-trash" /></button>
+                    <button type="submit" class="btn btn-outline-success">Crear <i class="oi oi-document" /></button>
                 </div>
+                <div class="ms-auto"></div>
             </div>
         </div>
     </div>
@@ -75,51 +74,37 @@
 @code {
 
     [Parameter]
-    public Cliente cliente { get; set; } = new Cliente();
+    public int ClienteId { get; set; }
+    public Clientes cliente { get; set; } = new Clientes();
     public string Mensaje { get; set; } = string.Empty;
 
 
 
-    public async void Buscar ()
+   
+    protected override async Task OnInitializedAsync()
     {
-        var Encontrado = await ClienteService.Buscar(cliente.ClienteId);
-        if (Encontrado != null)
+        if (ClienteId > 0)
         {
-            cliente = Encontrado;
-            Mensaje = string.Empty;
-        }
-        
-    }
-
-    public void Nuevo()
-    {
-        this.cliente = new Cliente();
-    }
-
-    public void Ocultar()
-    {
-        Mensaje = string.Empty;
-    }
-
-     public async  void Guardar()
-    {
-        var guardo = ClienteService.Guardar(cliente);
-        if (await guardo)
-        {
-
-            Nuevo();
+            this.cliente.ClienteId = ClienteId;
+            await Crear();
         }
 
     }
 
-    public async  void Eliminar()
+    public async Task Crear()
     {
-        var elimino = ClienteService.Eliminar(cliente);
-        if (await elimino)
+        using var response = await httpClient.PostAsJsonAsync("api/Cliente", cliente);
+        if (!response.IsSuccessStatusCode)
         {
-        
-            Nuevo();
+            Mensaje = response.ReasonPhrase ?? "error";
+            return;
         }
-       
+        var clienteDevuelto = await response.Content.ReadFromJsonAsync<Clientes>();
+        if (clienteDevuelto is not null)
+        {
+            cliente = clienteDevuelto;
+            StateHasChanged();
+        }
+
     }
 }
