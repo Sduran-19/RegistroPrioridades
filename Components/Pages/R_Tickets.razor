@@ -4,7 +4,7 @@
 @inject TicketsService TicketsService
 
 
-<EditForm Model="Ticket" OnValidSubmit="Guardar">
+<EditForm Model="Ticket" OnValidSubmit="Crear">
     <DataAnnotationsValidator />
 
     <div class="container">
@@ -77,12 +77,13 @@
                 </div>
 
             </div>
-            <div class="card-footer d-flex justify-content-center">
+            <div class="card-footer d-flex justify-content-between">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-outline-primary" @onclick="Nuevo">Nuevo <i class="oi oi-file" /></button>
-                    <button type="submit" class="btn btn-outline-success">Guardar <i class="oi oi-document" /></button>
-                    <button type="button" class="btn btn-outline-danger" @onclick="Eliminar">Eliminar <i class="oi oi-trash" /></button>
+                    <button type="submit" class="btn btn-outline-success">Crear <i class="oi oi-document" /></button>
                 </div>
+                <div class="ms-auto"></div>
+            </div>
+
             </div>
         </div>
     </div>
@@ -107,25 +108,11 @@
         if(TicketId>0)
         {
             this.Ticket.TicketId = TicketId;
-            await Buscar();
+            await Crear();
         }
     }
-
-    public async Task Buscar()
-    {
-        var ticketEncontrado = await httpClient.GetFromJsonAsync<Ticket>($"api/Tickets/{Ticket.TicketId}");
-        if (ticketEncontrado != null)
-        {
-            this.Ticket = ticketEncontrado;
-            StateHasChanged();
-        }
-        else
-        {
-            Mensaje = "Ticket no encontrado";
-        }
-    }
-
-    public async Task Guardar()
+   
+    public async Task Crear()
     {
         using var response = await httpClient.PostAsJsonAsync("api/Tickets", Ticket);
         if (!response.IsSuccessStatusCode)
@@ -139,23 +126,9 @@
             Ticket = ticketDevuelto;
             StateHasChanged();
         }
+
+
     }
 
-    public void Nuevo()
-    {
-        this.Ticket = new Ticket();
-        Mensaje = string.Empty;
-    }
 
-    public async Task Eliminar()
-    {
-        using var response = await httpClient.DeleteAsync($"api/Tickets/{Ticket.TicketId}");
-        if (!response.IsSuccessStatusCode)
-        {
-            Mensaje = response.ReasonPhrase ?? "error";
-            return;
-        }
-        else
-            Nuevo();
-    }
 }
